@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고경표 | Information Security Portfolio</title>
+  <meta name="description" content="고경표 정보보안 포트폴리오" />
+  <style>
+    :root {
+      --bg: #07101f;
+      --bg-soft: #0d1830;
+      --card: rgba(255,255,255,0.08);
+      --card-strong: rgba(255,255,255,0.12);
+      --line: rgba(255,255,255,0.12);
+      --text: #eef4ff;
+      --muted: #b4c2dc;
+      --primary: #4ea1ff;
+      --primary-2: #7b61ff;
+      --accent: #1fd1a5;
+      --shadow: 0 24px 80px rgba(0,0,0,.32);
+      --radius: 24px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(78,161,255,.18), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(123,97,255,.18), transparent 22%),
+        linear-gradient(135deg, #020816 0%, #07101f 42%, #0d1830 100%);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+    .nav-wrap { position: sticky; top: 16px; z-index: 50; padding: 16px 0; }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 16px 22px; border-radius: 999px;
+    }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:800; }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff; font-weight: 900;
+    }
+    .nav-links { display:flex; gap:22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: #fff; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 13px 18px; border-radius: 999px; font-weight: 700; font-size: 14px;
+      border: 1px solid var(--line); transition: .25s ease;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      border-color: transparent;
+      color:#fff;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding: 40px 0 56px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(1,7,18,.94) 0%, rgba(4,12,27,.88) 45%, rgba(4,12,27,.58) 68%, rgba(4,12,27,.25) 100%),
+        url("%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jfif") center/cover no-repeat;
+      opacity: .92;
+      z-index: -2;
+    }
+    .hero::after {
+      content: "";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 72% 28%, rgba(78,161,255,.32), transparent 18%),
+        linear-gradient(180deg, rgba(4,12,27,.15), rgba(4,12,27,.55));
+      z-index:-1;
+    }
+    .hero-grid {
+      display:grid; grid-template-columns: 1.2fr .8fr; gap: 30px; align-items: center;
+    }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      background: rgba(255,255,255,.08); border:1px solid var(--line);
+      color:#d6e5ff; font-size:13px; margin-bottom: 18px;
+    }
+    .pulse {
+      width:10px; height:10px; border-radius:999px; background: var(--accent);
+      box-shadow:0 0 0 0 rgba(31,209,165,.7); animation:pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow:0 0 0 0 rgba(31,209,165,.65); }
+      70% { box-shadow:0 0 0 14px rgba(31,209,165,0); }
+      100% { box-shadow:0 0 0 0 rgba(31,209,165,0); }
+    }
+    h1 {
+      margin:0; font-size: clamp(42px, 7vw, 74px); line-height:1.02; letter-spacing:-.05em;
+    }
+    .grad {
+      background: linear-gradient(135deg, #fff 10%, #cce0ff 45%, #74daff 75%, #8a72ff 100%);
+      -webkit-background-clip:text; background-clip:text; color: transparent;
+    }
+    .hero p {
+      color: var(--muted); max-width: 720px; font-size: 18px; line-height: 1.75; margin: 20px 0 0;
+    }
+    .hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-top: 28px; }
+    .hero-kpis {
+      display:grid; grid-template-columns: repeat(3, minmax(120px,1fr)); gap: 14px; margin-top: 28px;
+      max-width: 720px;
+    }
+    .kpi {
+      padding:16px 18px; border-radius: 18px; background: rgba(255,255,255,.06); border:1px solid var(--line);
+    }
+    .kpi strong { display:block; font-size:28px; letter-spacing:-.04em; margin-bottom:6px; }
+    .kpi span { color: var(--muted); font-size:13px; }
+    .profile-card {
+      padding: 24px; border-radius: 30px; position: relative;
+    }
+    .portrait {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.18);
+      display:block;
+    }
+    .badge-row { display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px; }
+    .chip {
+      padding: 10px 12px; border-radius: 999px; font-size: 12px; font-weight:700;
+      background: rgba(255,255,255,.07); border:1px solid var(--line); color:#e3ecff;
+    }
+    section { padding: 84px 0; }
+    .section-head { display:flex; justify-content:space-between; gap: 24px; align-items:end; flex-wrap:wrap; margin-bottom:28px; }
+    .section-head h2 {
+      margin:0; font-size: clamp(28px, 4vw, 46px); letter-spacing:-.04em;
+    }
+    .section-head p { margin:0; max-width: 700px; color: var(--muted); line-height: 1.75; }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card { padding: 24px; border-radius: 26px; }
+    .card h3 { margin:0 0 14px; font-size: 22px; letter-spacing:-.03em; }
+    .list { display:grid; gap: 12px; }
+    .item {
+      padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.04); border:1px solid var(--line);
+    }
+    .item strong { display:block; font-size: 15px; margin-bottom: 4px; }
+    .item span { color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .timeline { position: relative; display:grid; gap:16px; }
+    .timeline::before {
+      content:""; position:absolute; top:0; bottom:0; left: 11px; width:2px; background: rgba(255,255,255,.12);
+    }
+    .timeline-item {
+      position:relative; padding-left: 40px; min-height: 30px;
+    }
+    .timeline-item::before {
+      content:""; position:absolute; left:0; top:6px; width:24px; height:24px; border-radius:999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 0 0 6px rgba(255,255,255,.05);
+    }
+    .timeline-item h4 { margin:0 0 4px; font-size:17px; }
+    .timeline-item p { margin:0; color: var(--muted); line-height:1.7; }
+    .stack-grid {
+      display:grid; grid-template-columns: repeat(4,1fr); gap: 18px;
+    }
+    .stack-card { padding: 22px; border-radius: 24px; }
+    .stack-card h3 { margin:0 0 12px; font-size:18px; }
+    .tags { display:flex; flex-wrap:wrap; gap: 10px; }
+    .tag {
+      padding:8px 12px; border-radius:999px; background: rgba(255,255,255,.06);
+      border:1px solid var(--line); color:#dce7fb; font-size: 13px; font-weight:650;
+    }
+    .project-wrap { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
+    .project-title { display:flex; justify-content:space-between; gap:12px; align-items:start; flex-wrap:wrap; margin-bottom: 14px; }
+    .project-title h3 { margin:0; font-size: 28px; }
+    .subtle { color: var(--muted); }
+    .metric-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; margin-top: 16px; }
+    .metric {
+      padding:16px; border-radius:18px; background: rgba(255,255,255,.05); border:1px solid var(--line);
+    }
+    .metric strong { display:block; font-size: 24px; margin-bottom: 6px; }
+    .metric span { color: var(--muted); font-size: 13px; }
+    .link-card a { color:#fff; text-decoration:none; }
+    .link-card a:hover { text-decoration: underline; }
+
+    .project-card-clickable { cursor:pointer; position:relative; overflow:hidden; appearance:none; -webkit-appearance:none; width:100%; text-align:left; color:inherit; font:inherit; }
+    .project-card-clickable::after {
+      content:"상세보기"; position:absolute; right:20px; bottom:18px; font-size:13px; font-weight:700;
+      color:#dfe9ff; padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+    }
+    .project-card-clickable:hover { transform: translateY(-4px); }
+    .project-card-clickable:hover::after { background: linear-gradient(135deg, rgba(78,161,255,.22), rgba(123,97,255,.22)); }
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(2, 6, 18, .62); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      display:flex; align-items:flex-start; justify-content:center; padding: 26px 16px; z-index: 999; opacity:0; visibility:hidden; transition: .28s ease;
+    }
+    .modal-overlay.open { opacity:1; visibility:visible; }
+    .modal-panel {
+      width:min(1100px, 100%); max-height: calc(100vh - 52px); overflow:auto; border-radius: 30px; border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(12,24,48,.96), rgba(8,15,31,.97)); box-shadow: 0 30px 120px rgba(0,0,0,.46);
+      transform: translateY(-36px) scale(.985); opacity:0; transition: .32s ease;
+    }
+    .modal-overlay.open .modal-panel { transform: translateY(0) scale(1); opacity:1; }
+    .modal-header {
+      position: sticky; top:0; z-index:5; padding: 22px 24px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+      background: linear-gradient(180deg, rgba(9,19,39,.95), rgba(9,19,39,.78)); border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .modal-header h3 { margin:0 0 8px; font-size: clamp(28px, 4vw, 42px); }
+    .modal-header p { margin:0; color: var(--muted); line-height:1.7; max-width: 760px; }
+    .close-btn {
+      border:0; cursor:pointer; width:46px; height:46px; border-radius:16px; color:var(--text); font-size:22px;
+      background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); flex:0 0 auto;
+    }
+    .close-btn:hover { background: rgba(255,255,255,.12); }
+    .modal-body { padding: 24px; display:grid; gap:18px; }
+    .modal-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
+    .modal-section { padding:22px; border-radius:24px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); }
+    .modal-section h4 { margin:0 0 14px; font-size:20px; }
+    .modal-section p { margin:0; color: var(--muted); line-height:1.8; }
+    .list-clean { margin:0; padding-left: 18px; color: var(--muted); line-height:1.8; }
+    .list-clean li + li { margin-top:8px; }
+    .mini-tags { display:flex; flex-wrap:wrap; gap:10px; }
+    .mini-tag { display:inline-flex; padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); color:#e6efff; font-size:13px; font-weight:700; }
+    .contributors { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+    .contributor { padding:12px 14px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); color:var(--muted); }
+    .artifact-preview { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; }
+    .artifact-card { border-radius:20px; overflow:hidden; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
+    .artifact-card img { width:100%; height:220px; object-fit:cover; display:block; background:#0b1020; }
+    .artifact-card .cap { padding:12px 14px; color:var(--muted); font-size:14px; }
+    .keyline { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; }
+    .keybox { padding:18px; border-radius:20px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
+    .keybox strong { display:block; font-size:18px; margin-bottom:6px; }
+
+    .contact-trigger { cursor:pointer; }
+    .contact-modal-panel {
+      width:min(520px, 100%); max-height: calc(100vh - 52px); overflow:auto; border-radius: 28px; border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(12,24,48,.97), rgba(8,15,31,.98)); box-shadow: 0 30px 120px rgba(0,0,0,.46);
+      transform: translateY(-36px) scale(.985); opacity:0; transition: .32s ease;
+    }
+    .modal-overlay.open .contact-modal-panel { transform: translateY(0) scale(1); opacity:1; }
+    .contact-modal-body { padding: 24px; display:grid; gap:16px; }
+    .contact-card {
+      padding: 18px 18px 16px; border-radius: 22px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    }
+    .contact-card h4 { margin:0 0 10px; font-size:18px; }
+    .contact-card p { margin:0; color: var(--muted); line-height:1.7; }
+    .copy-field {
+      margin-top: 14px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+      cursor:pointer; transition: .2s ease;
+    }
+    .copy-field:hover { transform: translateY(-2px); background: rgba(255,255,255,.08); }
+    .copy-label { display:block; color: var(--muted); font-size: 12px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .08em; }
+    .copy-value { font-size: 16px; font-weight: 700; color: #f3f7ff; word-break: break-all; }
+    .copy-badge {
+      flex: 0 0 auto; padding: 10px 12px; border-radius: 999px; font-size: 12px; font-weight: 800;
+      background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#deebff;
+    }
+    .contact-tip { color: var(--muted); font-size: 13px; text-align:center; }
+
+    body.modal-open { overflow:hidden; }
+
+    .cta {
+      padding: 30px; border-radius: 30px; display:flex; justify-content:space-between; gap:18px; align-items:center; flex-wrap:wrap;
+    }
+    .cta h3 { margin:0 0 10px; font-size: clamp(28px, 4vw, 42px); }
+    .cta p { margin:0; color: var(--muted); line-height:1.7; max-width: 760px; }
+    footer { padding: 0 0 50px; }
+    .footer {
+      padding: 20px 24px; border-radius: 22px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+      color: var(--muted); font-size: 14px;
+    }
+    .reveal { opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform: translateY(0); }
+    @media (max-width: 980px) {
+      .hero-grid, .grid-2, .project-wrap, .stack-grid, .modal-grid, .keyline, .artifact-preview, .contributors { grid-template-columns: 1fr; }
+      .nav-links { display:none; }
+      .hero { min-height: auto; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(calc(100% - 24px), var(--max)); }
+      .hero-kpis, .metric-grid { grid-template-columns: 1fr; }
+      .nav { border-radius: 24px; }
+      section { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <div class="container">
+      <nav class="nav glass">
+        <div class="brand">
+          <div class="brand-mark">KP</div>
+          <div>GYEONG PYO KO</div>
+        </div>
+        <div class="nav-links">
+          <a href="#Profile">Profile</a>
+          <a href="#Career & Prize">Career & Prize</a>
+          <a href="#Stacks">Stacks</a>
+          <a href="#Team Project">Team Project</a>
+        </div>
+        <button class="btn primary" type="button" onclick="openContactModal()">CONTACT</button>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="eyebrow"><span class="pulse"></span>Information Security Portfolio</div>
+        <h1>고경표<br><span class="grad">모의해킹 전문가</span></h1>
+        <p>
+          의사소통 능력이 뛰어나고, 화합과 배려를 잘하는 정보보안 전문가.
+          클라우드, 모바일 앱 진단, 모의해킹, 리버스 엔지니어링, 자동화 도구 활용 경험을 바탕으로
+          실무 중심의 보안 진단과 협업을 수행합니다.
+        </p>
+        <div class="hero-actions">
+          <a href="#project" class="btn primary">프로젝트 보기</a>
+          <a href="https://github.com/GyeongPyoKo" class="btn" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div class="hero-kpis">
+          <div class="kpi">
+            <strong>2025~</strong>
+            <span>시큐어로그 재직중</span>
+          </div>
+          <div class="kpi">
+            <strong>2023~2025</strong>
+            <span>핀시큐리티 근무</span>
+          </div>
+          <div class="kpi">
+            <strong>2022</strong>
+            <span>K-Digital Training 수료</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card glass reveal">
+        <img src="Untitled.png" alt="고경표 프로필 사진" class="portrait" />
+        <div class="badge-row">
+          <span class="chip">Cloud Security</span>
+          <span class="chip">Android Security</span>
+          <span class="chip">Reverse Engineering</span>
+          <span class="chip">Penetration Testing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Profile">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Profile</div>
+          <h2>프로필</h2>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card glass reveal">
+          <h3>Profile</h3>
+          <div class="list">
+            <div class="item"><strong>생년월일</strong><span>1998년 10월 02일</span></div>
+            <div class="item"><strong>부평고등학교 졸업</strong><span>2014.03 ~ 2017.02</span></div>
+            <div class="item"><strong>유원대학교 정보통신보안학과 졸업</strong><span>2017.03 ~ 2023.02</span></div>
+          </div>
+        </div>
+
+        <div class="card glass reveal" id="contact">
+          <h3>👂 Contact</h3>
+          <div class="list">
+            <div class="item"><strong>Email</strong><span><a href="mailto:rhrudvy1002@google.com">rhrudvy1002@google.com</a></span></div>
+            <div class="item"><strong>Phone</strong><span><a href="tel:+821047949170">010-4794-9170</a></span></div>
+            <div class="item"><strong>GitHub</strong><span><a href="https://github.com/GyeongPyoKo" target="_blank" rel="noopener noreferrer">github.com/GyeongPyoKo</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Career & Prize">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Career & Prize</div>
+          <h2>경력과 수상 이력</h2>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card glass reveal">
+          <h3>📘 Career Timeline</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <h4>K-Digital Training 수료</h4>
+              <p>클라우드 기반 스마트융합보안양성과정 · 2022.06.09 ~ 2022.11.22</p>
+            </div>
+            <div class="timeline-item">
+              <h4>핀시큐리티 근무</h4>
+              <p>2023.01.09 ~ 2025.01.10</p>
+            </div>
+            <div class="timeline-item">
+              <h4>시큐어로그 재직중</h4>
+              <p>2025.02.03 ~ 현재</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass reveal">
+          <h3>🥇 Highlights</h3>
+          <div class="list">
+            <div class="item">
+              <strong>선도기업상</strong>
+              <span>클라우드 기반 스마트융합보안양성과정 · 2022</span>
+            </div>
+            <div class="item">
+              <strong>대회 주최자 및 개발자</strong>
+              <span>AWS 시스템 및 전자금융기반 안드로이드 앱 시나리오 모의해킹대회 · 2023 · 핀시큐리티</span>
+            </div>
+            <div class="item">
+              <strong>2023 CTB 8위 수상</strong>
+              <span>2023 · 파인더갭</span>
+            </div>
+            <div class="item">
+              <strong>2024 우수사원상</strong>
+              <span>핀시큐리티</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Stacks">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Stacks</div>
+          <h2>기술 스택</h2>
+        </div>
+      </div>
+
+      <div class="stack-grid">
+        <div class="stack-card glass reveal">
+          <h3>소통</h3>
+          <div class="tags">
+            <span class="tag">Discord</span>
+            <span class="tag">Slack</span>
+          </div>
+        </div>
+        <div class="stack-card glass reveal">
+          <h3>클라우드 · 언어</h3>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML</span>
+          </div>
+        </div>
+        <div class="stack-card glass reveal">
+          <h3>데이터베이스 · 프레임워크</h3>
+          <div class="tags">
+            <span class="tag">MySQL</span>
+            <span class="tag">Oracle</span>
+            <span class="tag">MSSQL</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </div>
+        <div class="stack-card glass reveal">
+          <h3>프로젝트 관리 · Tools</h3>
+          <div class="tags">
+            <span class="tag">GitHub</span>
+            <span class="tag">Notion</span>
+            <span class="tag">Burp Suite</span>
+            <span class="tag">IDA</span>
+            <span class="tag">Frida</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Team Project">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Team Project</div>
+          <h2>대표 프로젝트</h2>
+        </div>
+      </div>
+
+      <div class="project-wrap">
+        <button class="card glass reveal project-card-clickable" id="openAutomata" type="button" aria-haspopup="dialog" aria-controls="automataModal">
+          <div class="project-title">
+            <div>
+              <h3>🥇 Automata</h3>
+              <div class="subtle">K-Digital Training 클라우드 기반 스마트융합보안양성과정 · Team Project</div>
+            </div>
+            <span class="chip">대표 프로젝트</span>
+          </div>
+          <p class="subtle" style="line-height:1.8; text-align:left;">
+            AWS 클라우드 환경에서 안드로이드 모바일 금융 앱 모의해킹을 주제로 진행한 팀 프로젝트입니다.
+            클릭하면 새 창 대신 상단에서 내려오는 팝업으로 역할, 프로젝트 요약, 주요 취약점, 산출물을 확인할 수 있습니다.
+          </p>
+          <div class="metric-grid">
+            <div class="metric">
+              <strong>PM</strong>
+              <span>Project Lead</span>
+            </div>
+            <div class="metric">
+              <strong>8+</strong>
+              <span>Security Topics</span>
+            </div>
+            <div class="metric">
+              <strong>AWS · Android</strong>
+              <span>Pentest Lab</span>
+            </div>
+          </div>
+        </button>
+
+        <div class="card glass reveal">
+          <h3>사용 기술</h3>
+          <div class="tags" style="margin-bottom:18px;">
+            <span class="tag">AWS</span>
+            <span class="tag">Android</span>
+            <span class="tag">Burp Suite</span>
+            <span class="tag">Frida</span>
+            <span class="tag">Ghidra</span>
+            <span class="tag">Github</span>
+            <span class="tag">Jadx</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">NOX</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Python</span>
+          </div>
+          <div class="item link-card">
+            <strong>GitHub</strong>
+            <span><a href="https://github.com/GyeongPyoKo" target="_blank" rel="noopener noreferrer">GyeongPyoKo - Overview</a></span>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="modal-overlay" id="contactModal" aria-hidden="true">
+    <div class="contact-modal-panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow">Direct Contact</div>
+          <h3 id="contactModalTitle">👂 CONTACT</h3>
+        </div>
+        <button class="close-btn" id="closeContact" type="button" aria-label="연락처 팝업 닫기">×</button>
+      </div>
+      <div class="contact-modal-body">
+        <div class="contact-card">
+          <h4>빠른 연락처</h4>
+          <button class="copy-field" type="button" onclick="copyContact('rhrudvy1002@google.com', '이메일이 복사되었습니다.')">
+            <div style="text-align:left;">
+              <span class="copy-label">Email</span>
+              <span class="copy-value">rhrudvy1002@google.com</span>
+            </div>
+            <span class="copy-badge">Copy</span>
+          </button>
+
+          <button class="copy-field" type="button" onclick="copyContact('010-4794-9170', '전화번호가 복사되었습니다.')">
+            <div style="text-align:left;">
+              <span class="copy-label">Phone</span>
+              <span class="copy-value">010-4794-9170</span>
+            </div>
+            <span class="copy-badge">Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="automataModal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="automataTitle">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow">Project Deep Dive</div>
+          <h3 id="automataTitle">🥇 Automata</h3>
+          <p>
+            AWS 클라우드 환경에서 안드로이드 모바일 금융 앱 모의해킹을 주제로 진행한 대표 프로젝트입니다.
+          </p>
+          <p>
+            AWS 환경의 안드로이드 금융 앱 모의해킹 학습을 위한 목적으로 개발하였습니다.
+          </p>
+        </div>
+        <button class="close-btn" id="closeAutomata" type="button" aria-label="팝업 닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="keyline">
+          <div class="keybox">
+            <strong>내 역할</strong>
+            <span class="subtle">PM, WBS 작성 및 이행 점검, 보고서 검수, 모의해킹 가이드 제작, 프로젝트 발표</span>
+          </div>
+          <div class="keybox">
+            <strong>핵심 목표</strong>
+            <span class="subtle">모바일 앱 보안 점검 기술 습득과 중요 취약점을 이용한 시나리오 기반 모의해킹 수행</span>
+          </div>
+          <div class="keybox">
+            <strong>프로젝트 성격</strong>
+            <span class="subtle">클라우드 인프라, 안드로이드 앱, 백엔드, 보안 진단, 가이드 제작이 결합된 실습형 팀 프로젝트</span>
+          </div>
+        </div>
+
+        <div class="modal-grid">
+          <div class="modal-section">
+            <h4>프로젝트 요약</h4>
+            <p>
+              Automata 프로젝트는 AWS 클라우드 환경에 오픈소스인 Damn Vulnerable Bank 기반 백엔드 서버와 모바일 금융 앱을 구축하고,
+              취약점 진단을 통해 시나리오 작성과 모의해킹을 수행한 프로젝트입니다. 핀테크 점검 리스트의 모바일 앱 보안 항목을 기반으로
+              진단 기술을 익히고, 입문자를 위한 환경 구축 가이드와 진단 가이드까지 제작한 점이 특징입니다.
+            </p>
+          </div>
+          <div class="modal-section">
+            <h4>사용 기술</h4>
+            <div class="mini-tags">
+              <span class="mini-tag">AWS</span>
+              <span class="mini-tag">Android</span>
+              <span class="mini-tag">Burp Suite</span>
+              <span class="mini-tag">Frida</span>
+              <span class="mini-tag">Ghidra</span>
+              <span class="mini-tag">Jadx</span>
+              <span class="mini-tag">MySQL</span>
+              <span class="mini-tag">Node.js</span>
+              <span class="mini-tag">Python</span>
+              <span class="mini-tag">NOX</span>
+              <span class="mini-tag">GitHub</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-grid">
+          <div class="modal-section">
+            <h4>주요 취약점 학습 항목</h4>
+            <ul class="list-clean">
+              <li>딥링크 취약점</li>
+              <li>Activity 설정 취약점</li>
+              <li>파일 다운로드 / 업로드 취약점</li>
+              <li>하드코딩된 민감정보 취약점</li>
+              <li>SQL 인젝션 취약점</li>
+              <li>민감 정보 노출 취약점</li>
+              <li>웹뷰 취약점</li>
+              <li>Cloud Metadata Exposure</li>
+            </ul>
+          </div>
+          <div class="modal-section">
+            <h4>좋았던 점과 아쉬웠던 점</h4>
+            <ul class="list-clean">
+              <li>안드로이드 모의해킹을 실무와 연결해 경험하면서 플랫폼 구조를 깊게 이해할 수 있었음</li>
+              <li>팀원들이 각자 역할을 충실히 수행해 프로젝트 진행이 안정적이었고, 추가 목표까지 확장 가능했음</li>
+              <li>모바일 금융 앱 체크리스트에 금융보안원 항목 자료를 활용하지 못한 점이 아쉬움으로 남음</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h4>Contributors</h4>
+          <div class="contributors">
+            <div class="contributor">고경표 (@GyeongPyoKo)</div>
+            <div class="contributor">김병현 (@sidereumare)</div>
+            <div class="contributor">김진형 (@jinhyeongkimm)</div>
+            <div class="contributor">김현진 (@hyunjin423)</div>
+            <div class="contributor">박건웅 (@shboan08)</div>
+            <div class="contributor">서보금 (@bgmmmm)</div>
+            <div class="contributor">이현우 (@uwwual)</div>
+            <div class="contributor">임영재 (@Young-Jae-Lim)</div>
+            <div class="contributor">채하늘 (@sky302)</div>
+            <div class="contributor">홍지원 (@hjw961004)</div>
+          </div>
+        </div>
+
+        <div class="modal-grid">
+          <div class="modal-section">
+            <h4>관련 링크</h4>
+            <ul class="list-clean">
+              <li><a href="https://github.com/sidereumare/OhBANK" target="_blank" rel="noopener noreferrer">OhBANK GitHub Repository</a></li>
+              <li><a href="https://ohbank.online/" target="_blank" rel="noopener noreferrer">모의해킹 진단 가이드</a></li>
+              <li><a href="https://github.com/GyeongPyoKo" target="_blank" rel="noopener noreferrer">GyeongPyoKo GitHub</a></li>
+            </ul>
+          </div>
+          <div class="modal-section">
+            <h4>프로젝트 산출물 미리보기</h4>
+            <div class="artifact-preview">
+              <div class="artifact-card">
+                <img src="Untitled 0.png" alt="Automata 프로젝트 산출물 미리보기" />
+              </div>
+              <div class="artifact-card">
+                <img src="Untitled 1.png" alt="Automata 프로젝트 산출물 미리보기" />
+              </div>
+              <div class="artifact-card">
+                <img src="Untitled 2.png" alt="Automata 프로젝트 산출물 미리보기" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="cta glass reveal">
+        <div>
+          <h3>제 포트폴리오를 봐주셔서 감사합니다.</h3>
+          <a href="https://kgp-studio.tistory.com/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn"
+          style="margin-top:14px;">
+          📘 블로그 보러가기
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer glass">
+        <div>© GYEONG PYO KO Portfolio</div>
+        <div>Designed in gpko</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const modal = document.getElementById('automataModal');
+    const openAutomata = document.getElementById('openAutomata');
+    const closeAutomata = document.getElementById('closeAutomata');
+    const contactModal = document.getElementById('contactModal');
+    const closeContact = document.getElementById('closeContact');
+    const copyToast = document.getElementById('copyToast');
+
+    function syncBodyLock() {
+      const anyOpen = modal.classList.contains('open') || contactModal.classList.contains('open');
+      document.body.classList.toggle('modal-open', anyOpen);
+    }
+
+    function openModal() {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      syncBodyLock();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      syncBodyLock();
+    }
+
+    function openContactModal() {
+      contactModal.classList.add('open');
+      contactModal.setAttribute('aria-hidden', 'false');
+      syncBodyLock();
+    }
+
+    function closeContactModal() {
+      contactModal.classList.remove('open');
+      contactModal.setAttribute('aria-hidden', 'true');
+      syncBodyLock();
+    }
+
+    async function copyContact(value, message) {
+      try {
+        await navigator.clipboard.writeText(value);
+        if (copyToast) copyToast.textContent = message;
+      } catch (err) {
+        const temp = document.createElement('input');
+        temp.value = value;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        if (copyToast) copyToast.textContent = message;
+      }
+    }
+
+    openAutomata?.addEventListener('click', openModal);
+    closeAutomata?.addEventListener('click', closeModal);
+    closeContact?.addEventListener('click', closeContactModal);
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    contactModal?.addEventListener('click', (e) => {
+      if (e.target === contactModal) closeContactModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (modal.classList.contains('open')) closeModal();
+        if (contactModal.classList.contains('open')) closeContactModal();
+      }
+    });
+
+    window.openContactModal = openContactModal;
+    window.closeContactModal = closeContactModal;
+    window.copyContact = copyContact;
+  </script>
+</body>
+</html>
